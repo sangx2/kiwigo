@@ -2,7 +2,7 @@
 package kiwi
 
 /*
-#cgo LDFLAGS: -L./lib -lkiwi
+#cgo LDFLAGS: -L./import/lib/kiwi/0.14.1 -lkiwi
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h> // for uintptr_t
