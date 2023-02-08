@@ -9,7 +9,7 @@ import (
 )
 
 func TestKiwiVersion(t *testing.T) {
-	assert.Equal(t, KiwiVersion(), "0.10.3")
+	assert.Equal(t, KiwiVersion(), "0.14.1")
 }
 
 func TestAnalyze(t *testing.T) {

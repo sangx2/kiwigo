@@ -2,7 +2,7 @@
 package kiwi
 
 /*
-#cgo LDFLAGS: -l kiwi
+#cgo LDFLAGS: -L./lib -lkiwi
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h> // for uintptr_t
@@ -14,6 +14,7 @@ extern int KiwiReaderBridge(int lineNumber, char *buffer, void *userData);
 import "C"
 
 import (
+	"errors"
 	"io"
 	"runtime/cgo"
 	"unsafe"
@@ -96,6 +97,9 @@ func (k *Kiwi) Analyze(text string, topN int, options AnalyzeOption) ([]TokenRes
 	defer C.kiwi_res_close(kiwiResH)
 
 	resSize := int(C.kiwi_res_size(kiwiResH))
+	if resSize != 0 {
+		return nil, errors.New(KiwiError())
+	}
 	res := make([]TokenResult, resSize)
 
 	for i := 0; i < resSize; i++ {
@@ -135,6 +139,10 @@ func (k *Kiwi) SplitSentence(text string, options AnalyzeOption) ([]SplitResult,
 	defer C.kiwi_ss_close(kiwiSsH)
 
 	resSize := int(C.kiwi_ss_size(kiwiSsH))
+	if resSize != 0 {
+		return nil, errors.New(KiwiError())
+	}
+
 	res := make([]SplitResult, resSize)
 
 	for i := 0; i < resSize; i++ {
@@ -188,7 +196,7 @@ func (kb *KiwiBuilder) LoadDict(dictPath string) int {
 
 // Build creates kiwi instance with user word etc.
 func (kb *KiwiBuilder) Build() *Kiwi {
-	h := C.kiwi_builder_build(kb.handler)
+	h := C.kiwi_builder_build(kb.handler, nil, 0)
 	defer kb.Close()
 	return &Kiwi{
 		handler: h,
