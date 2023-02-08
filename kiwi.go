@@ -19,7 +19,7 @@ import (
 	"runtime/cgo"
 	"unsafe"
 
-	"github.com/codingpot/kiwigo/internal"
+	"github.com/sangx2/kiwigo/internal"
 )
 
 // BuildOption is a bitwise OR of the KiwiBuildOption values.
