@@ -3,7 +3,7 @@ package kiwi_test
 import (
 	"fmt"
 
-	kiwi "github.com/codingpot/kiwigo"
+	kiwi "github.com/sangx2/kiwigo"
 )
 
 func Example() {
