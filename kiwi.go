@@ -97,7 +97,7 @@ func (k *Kiwi) Analyze(text string, topN int, options AnalyzeOption) ([]TokenRes
 	defer C.kiwi_res_close(kiwiResH)
 
 	resSize := int(C.kiwi_res_size(kiwiResH))
-	if resSize != 0 {
+	if resSize < 0 {
 		return nil, errors.New(KiwiError())
 	}
 	res := make([]TokenResult, resSize)
@@ -139,7 +139,7 @@ func (k *Kiwi) SplitSentence(text string, options AnalyzeOption) ([]SplitResult,
 	defer C.kiwi_ss_close(kiwiSsH)
 
 	resSize := int(C.kiwi_ss_size(kiwiSsH))
-	if resSize != 0 {
+	if resSize < 0 {
 		return nil, errors.New(KiwiError())
 	}
 
